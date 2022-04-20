@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "frontend": "packages/frontend",
+    "gof-next": "packages/gof-next",
+    "gof-next-e2e": "packages/gof-next-e2e",
     "gof-tsc": "packages/gof-tsc"
   }
 }
