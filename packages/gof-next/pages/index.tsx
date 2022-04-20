@@ -1,45 +1,50 @@
 import { GameOfLife, IBoard } from '@game-of-life-new/gof-tsc';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './index.module.css';
 
 export function Index() {
-  const [board, setBoard] = useState<IBoard | null>(null);
-  const [game, setGame] = useState<any | null>(null);
-
   const numRows = 40;
   const numCols = 40;
 
-  const randomTiles = () => {
-    const rows = [];
-    for (let i = 0; i < numRows; i++) {
-      rows.push(
-        Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
-      ); // returns a live cell 70% of the time
-    }
-    return rows;
-  };
+  const [count, setCount] = useState(0);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout>(null);
 
-  const [grid, setGrid] = useState(() => {
-    return randomTiles();
+  const [grid, setGrid] = useState<IBoard>(() => {
+    return GameOfLife.generateBoard(numRows);
   });
-
-  useEffect(() => {
-    const newGame = new GameOfLife([]);
-    newGame.generateBoard(10);
-    setGame(newGame);
-  }, []);
 
   const playGameOfLife = () => {
     const newGame = new GameOfLife(grid);
     setGrid(newGame.tick().getBoard());
+    setCount((prevCount) => prevCount + 1);
   };
 
   const autoPlayGameOfLife = () => {
     const newGame = new GameOfLife(grid);
-    setGame(newGame);
-    setInterval(() => {
+    const newIntervalId = setInterval(() => {
       setGrid(newGame.tick().getBoard());
+      setCount((prevCount) => prevCount + 1);
     }, 50);
+
+    setIntervalId(newIntervalId);
+  };
+
+  const pauseGameOfLife = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+      return;
+    }
+
+    const newIntervalId = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
+    }, 1000);
+    setIntervalId(newIntervalId);
+  };
+
+  const resetGameOfLife = () => {
+    const newGame = new GameOfLife(GameOfLife.generateBoard(numRows));
+    setGrid(newGame.getBoard());
   };
 
   /*
@@ -66,22 +71,26 @@ export function Index() {
               margin: '0 auto',
             }}
           >
-            {grid.map((rows, i) =>
-              rows.map((col, k) => (
-                <div
-                  style={{
-                    width: 20,
-                    height: 20,
-                    backgroundColor: grid[i][k] ? '#00ffa3' : undefined,
-                    border: '1px solid #595959',
-                  }}
-                />
-              ))
-            )}
+            {grid &&
+              grid.map((rows, i) =>
+                rows.map((_col, k) => (
+                  <div
+                    key={`${i}-${k}`}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      backgroundColor: grid[i][k] ? '#00ffa3' : undefined,
+                      border: '1px solid #595959',
+                    }}
+                  />
+                ))
+              )}
           </div>
 
           <button onClick={playGameOfLife}>PLAY</button>
-          <button onClick={autoPlayGameOfLife}>AUTO PLAY</button>
+          <button onClick={autoPlayGameOfLife}>AUTO</button>
+          <button onClick={pauseGameOfLife}>PAUSE</button>
+          <button onClick={resetGameOfLife}>RESET</button>
 
           <p id="love">
             Carefully crafted with

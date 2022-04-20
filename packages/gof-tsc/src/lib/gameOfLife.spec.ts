@@ -103,8 +103,8 @@ describe('GameOfLife', () => {
 
   it('should render random board', () => {
     //given
-    const gameOfLife = new GameOfLife([]).generateBoard(5);
-    const gameOfLife2 = new GameOfLife([]).generateBoard(5);
+    const gameOfLife = new GameOfLife(GameOfLife.generateBoard(5));
+    const gameOfLife2 = new GameOfLife(GameOfLife.generateBoard(5));
     //when
 
     //then

@@ -44,17 +44,17 @@ export class GameOfLife {
     );
   }
 
-  public generateBoard(size: number) {
-    this.board = [];
+  static generateBoard(size: number) {
+    const newBoard: IBoard = [];
 
     for (let i = 0; i < size; i++) {
-      this.board.push([]);
+      newBoard.push([]);
 
       for (let j = 0; j < size; j++) {
-        this.board[i].push(Math.round(Math.random()) as ICellState);
+        newBoard[i].push(Math.round(Math.random()) as ICellState);
       }
     }
 
-    return this;
+    return newBoard;
   }
 }
