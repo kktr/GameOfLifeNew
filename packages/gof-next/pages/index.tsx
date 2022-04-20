@@ -45,6 +45,7 @@ export function Index() {
   const resetGameOfLife = () => {
     const newGame = new GameOfLife(GameOfLife.generateBoard(numRows));
     setGrid(newGame.getBoard());
+    setCount(0);
   };
 
   /*
@@ -63,6 +64,8 @@ export function Index() {
               {}
             </h1>
           </div>
+
+          <div>Number of ticks {count}</div>
           <div
             style={{
               display: 'grid',
