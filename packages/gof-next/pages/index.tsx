@@ -1,5 +1,4 @@
-import { GameOfLife } from '@game-of-life-new/gof-tsc';
-import { IBoard } from 'packages/gof-tsc/src/lib/IBoard';
+import { GameOfLife, IBoard } from '@game-of-life-new/gof-tsc';
 import { useEffect, useState } from 'react';
 import styles from './index.module.css';
 
