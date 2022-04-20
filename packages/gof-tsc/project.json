@@ -1,0 +1,32 @@
+{
+  "root": "packages/gof-tsc",
+  "sourceRoot": "packages/gof-tsc/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/gof-tsc",
+        "main": "packages/gof-tsc/src/index.ts",
+        "tsConfig": "packages/gof-tsc/tsconfig.lib.json",
+        "assets": ["packages/gof-tsc/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/gof-tsc/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/gof-tsc"],
+      "options": {
+        "jestConfig": "packages/gof-tsc/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

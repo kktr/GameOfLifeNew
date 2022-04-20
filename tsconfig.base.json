@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@game-of-life-new/frontend": ["packages/frontend/src/index.ts"],
+      "@game-of-life-new/gof-tsc": ["packages/gof-tsc/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

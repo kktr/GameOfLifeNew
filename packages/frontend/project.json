@@ -1,0 +1,32 @@
+{
+  "root": "packages/frontend",
+  "sourceRoot": "packages/frontend/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/frontend",
+        "main": "packages/frontend/src/index.ts",
+        "tsConfig": "packages/frontend/tsconfig.lib.json",
+        "assets": ["packages/frontend/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/frontend/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/frontend"],
+      "options": {
+        "jestConfig": "packages/frontend/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
